@@ -1,5 +1,18 @@
 #include "raylib.h"
+#include <sys/select.h>
 #include "bar.hpp"
+
+std::string parse_time(Selected_Time time) {
+  if (time == Selected_Time::THIRTY_SEC) {
+    return "30";
+  }
+  else if (time == Selected_Time::ONE_MIN) {
+    return "60";
+  }
+  else {
+    return "120";
+  }
+}
 
 Bar::Bar(Vector2 position, Vector2 size, float box_width, Font font)
       : m_position(position), m_size(size), m_font(font) {
@@ -24,8 +37,19 @@ void Bar::display_bar() {
       text_color = YELLOW;
 
       if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-
+	if (seconds == "30") {
+	  current_time = Selected_Time::THIRTY_SEC;
+	}
+	else if (seconds == "60") {
+	  current_time = Selected_Time::ONE_MIN;
+	}
+	else if (seconds == "120") {
+	  current_time = Selected_Time::TWO_MIN;
+	}
       }
+    }
+    else if (parse_time(current_time) == seconds) {
+      text_color = YELLOW;
     }
     else {
       text_color = RAYWHITE;

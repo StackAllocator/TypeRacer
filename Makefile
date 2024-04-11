@@ -1,6 +1,7 @@
 all: game
 
 main := main.cpp
+
 game: ./bin/$(main)
 	g++ -std=c++17 \
 	./bin/$(main) \
@@ -8,3 +9,7 @@ game: ./bin/$(main)
 	-I./deps/include \
 	-lraylib \
 	-o game
+
+.PHONY: clean
+clean:
+	rm -f game

@@ -10,11 +10,16 @@ enum class Selected_Time {
   TWO_MIN,
 };
 
+std::string parse_time(Selected_Time time);
+
 class Bar {
   public:
 
   Bar(Vector2 position, Vector2 size, float box_width, Font font);
   void display_bar();
+  Selected_Time get_time() {
+    return this->current_time;
+  }
 
   private:
     std::vector<std::pair<std::string, Rectangle>> time_boxes;
